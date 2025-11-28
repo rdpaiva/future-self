@@ -26,15 +26,15 @@ export default function DreamSelectionStep({
 
   return (
     <div className="flex min-h-screen flex-col items-center px-5 py-14 animate-fade-in">
-      <div className="text-xs font-sans uppercase tracking-[3px] text-[#B89B7A] mb-4">
+      <div className="text-xs font-sans uppercase tracking-[3px] text-dreamr-text-accent mb-4">
         Step 2 of 3
       </div>
 
-      <h2 className="text-4xl md:text-5xl font-light text-[#3D3225] mb-4 text-center">
+      <h2 className="text-4xl md:text-5xl font-light text-dreamr-text-dark mb-4 text-center">
         What Do You Dream Of?
       </h2>
 
-      <p className="text-lg text-[#7A6B5A] mb-12 font-light text-center max-w-[400px]">
+      <p className="text-lg text-dreamr-text mb-12 font-light text-center max-w-[400px]">
         Select the areas of life you want to visualize for your future self
       </p>
 
@@ -47,8 +47,8 @@ export default function DreamSelectionStep({
               onClick={() => onToggleDream(dream.id)}
               className={`rounded-2xl p-6 cursor-pointer transition-all duration-300 relative animate-fade-in ${
                 isSelected
-                  ? 'bg-gradient-to-br from-[#D4A574] to-[#C4956A] shadow-[0_10px_30px_rgba(212,165,116,0.35)] scale-[1.02]'
-                  : 'bg-white/70 border border-[rgba(212,165,116,0.2)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_8px_25px_rgba(212,165,116,0.2)] hover:scale-[1.02]'
+                  ? 'bg-dreamr-button shadow-dreamr-gold scale-[1.02]'
+                  : 'bg-dreamr-bg-card border border-dreamr-gold/20 shadow-dreamr-sm hover:shadow-dreamr-gold hover:scale-[1.02]'
               }`}
               style={{
                 animationDelay: `${index * 0.1}s`,
@@ -63,14 +63,14 @@ export default function DreamSelectionStep({
               </div>
               <div
                 className={`text-base font-medium mb-1 ${
-                  isSelected ? 'text-white' : 'text-[#3D3225]'
+                  isSelected ? 'text-white' : 'text-dreamr-text-dark'
                 }`}
               >
                 {dream.title}
               </div>
               <div
                 className={`text-xs font-sans leading-relaxed ${
-                  isSelected ? 'text-white/85' : 'text-[#9A8B7A]'
+                  isSelected ? 'text-white/85' : 'text-dreamr-text-light'
                 }`}
               >
                 {dream.description}
@@ -90,17 +90,17 @@ export default function DreamSelectionStep({
         disabled={selectedDreams.length === 0 || isRevealing}
         className={`border-none px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full transition-all duration-300 ${
           selectedDreams.length > 0
-            ? 'bg-gradient-to-br from-[#D4A574] to-[#C4956A] text-white cursor-pointer shadow-[0_8px_30px_rgba(212,165,116,0.4)] hover:shadow-[0_12px_40px_rgba(212,165,116,0.5)] hover:translate-y-[-2px]'
-            : 'bg-[rgba(212,165,116,0.3)] text-white cursor-not-allowed'
+            ? 'bg-dreamr-button text-white cursor-pointer shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px]'
+            : 'bg-dreamr-gold/30 text-white cursor-not-allowed'
         }`}
       >
         {isRevealing ? 'Manifesting...' : 'Reveal My Future Self'}
       </button>
 
       {isRevealing && (
-        <div className="fixed inset-0 bg-[rgba(253,248,243,0.97)] flex flex-col items-center justify-center z-50 animate-fade-in">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#D4A574] to-[#C4956A] mb-8 animate-pulse" />
-          <p className="text-2xl text-[#3D3225] font-light italic px-6 text-center">
+        <div className="fixed inset-0 bg-dreamr-bg-cream/[0.97] flex flex-col items-center justify-center z-50 animate-fade-in">
+          <div className="w-20 h-20 rounded-full bg-dreamr-button mb-8 animate-pulse" />
+          <p className="text-2xl text-dreamr-text-dark font-light italic px-6 text-center">
             {affirmations[Math.floor(Math.random() * affirmations.length)]}
           </p>
         </div>
@@ -111,7 +111,7 @@ export default function DreamSelectionStep({
           <div
             key={i}
             className={`h-2 rounded transition-all duration-300 ${
-              i === 2 ? 'w-6 bg-[#D4A574]' : i < 2 ? 'w-2 bg-[#D4A574]' : 'w-2 bg-[#D4A574]/30'
+              i === 2 ? 'w-6 bg-dreamr-gold' : i < 2 ? 'w-2 bg-dreamr-gold' : 'w-2 bg-dreamr-gold/30'
             }`}
           />
         ))}

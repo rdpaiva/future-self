@@ -194,10 +194,10 @@ export default function ProfilePage() {
   // Show loading state while checking auth
   if (authLoading || loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#FDF8F3] via-[#FEF3E8] to-[#FDF0E6]">
+      <div className="flex items-center justify-center min-h-screen bg-dreamr-gradient">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4A574] to-[#C4956A] mx-auto mb-4 animate-pulse" />
-          <p className="text-[#7A6B5A] font-sans">Loading...</p>
+          <div className="w-16 h-16 rounded-full bg-dreamr-button mx-auto mb-4 animate-pulse" />
+          <p className="text-dreamr-text font-sans">Loading...</p>
         </div>
       </div>
     );
@@ -207,10 +207,10 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#FDF8F3] via-[#FEF3E8] to-[#FDF0E6]">
+    <main className="relative min-h-screen overflow-hidden bg-dreamr-gradient">
       {/* Decorative background elements */}
-      <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,200,150,0.15)_0%,transparent_70%)] rounded-full pointer-events-none" />
-      <div className="fixed bottom-[-30%] left-[-15%] w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(255,180,120,0.1)_0%,transparent_70%)] rounded-full pointer-events-none" />
+      <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] bg-dreamr-glow-1 rounded-full pointer-events-none" />
+      <div className="fixed bottom-[-30%] left-[-15%] w-[800px] h-[800px] bg-dreamr-glow-2 rounded-full pointer-events-none" />
 
       <div className="relative z-10 px-5 py-10">
         {/* Header */}
@@ -218,32 +218,32 @@ export default function ProfilePage() {
           <div className="flex items-center justify-between mb-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-[#B89B7A] hover:text-[#D4A574] transition-colors font-sans text-sm"
+              className="inline-flex items-center gap-2 text-dreamr-text-accent hover:text-dreamr-gold transition-colors font-sans text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home
             </Link>
             <button
               onClick={signOut}
-              className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-sm text-[#7A6B5A] px-4 py-2 rounded-full font-sans text-sm shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.3)] transition-all"
+              className="inline-flex items-center gap-2 bg-dreamr-bg-card backdrop-blur-sm text-dreamr-text px-4 py-2 rounded-full font-sans text-sm shadow-dreamr-sm hover:shadow-dreamr-gold transition-all"
             >
               <LogOut className="w-4 h-4" />
               Sign Out
             </button>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-light text-[#3D3225] mb-4">
+          <h1 className="text-5xl md:text-7xl font-light text-dreamr-text-dark mb-4">
             Your Photos
           </h1>
-          <p className="text-lg text-[#7A6B5A] font-light">
+          <p className="text-lg text-dreamr-text font-light">
             Manage your uploaded photos and profile picture
           </p>
         </div>
 
         {/* Current Profile Picture */}
         <div className="max-w-4xl mx-auto mb-12">
-          <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-            <h2 className="text-xl font-light text-[#3D3225] mb-6 flex items-center gap-2">
+          <div className="bg-dreamr-bg-card backdrop-blur-sm rounded-3xl p-8 shadow-dreamr-sm">
+            <h2 className="text-xl font-light text-dreamr-text-dark mb-6 flex items-center gap-2">
               <User className="w-5 h-5" />
               Current Profile Picture
             </h2>
@@ -254,17 +254,17 @@ export default function ProfilePage() {
                   style={{ backgroundImage: `url(${currentAvatarUrl})` }}
                 />
               ) : (
-                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#D4A574] to-[#C4956A] flex items-center justify-center shadow-lg">
+                <div className="w-24 h-24 rounded-full bg-dreamr-button flex items-center justify-center shadow-lg">
                   <User className="w-10 h-10 text-white" />
                 </div>
               )}
               <div>
-                <p className="text-[#7A6B5A] font-sans text-sm">
+                <p className="text-dreamr-text font-sans text-sm">
                   {currentAvatarUrl
                     ? "This is your current profile picture"
                     : "No profile picture set yet"}
                 </p>
-                <p className="text-[#B89B7A] font-sans text-xs mt-1">
+                <p className="text-dreamr-text-accent font-sans text-xs mt-1">
                   Select a photo below to change it
                 </p>
               </div>
@@ -284,7 +284,7 @@ export default function ProfilePage() {
           <button
             onClick={() => fileInputRef.current?.click()}
             disabled={uploading}
-            className="w-full bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.3)] transition-all border-2 border-dashed border-[#D4A574]/30 hover:border-[#D4A574] flex items-center justify-center gap-3 text-[#7A6B5A] font-sans disabled:opacity-50"
+            className="w-full bg-dreamr-bg-card backdrop-blur-sm rounded-2xl p-6 shadow-dreamr-sm hover:shadow-dreamr-gold transition-all border-2 border-dashed border-dreamr-gold/30 hover:border-dreamr-gold flex items-center justify-center gap-3 text-dreamr-text font-sans disabled:opacity-50"
           >
             {uploading ? (
               <>
@@ -304,15 +304,15 @@ export default function ProfilePage() {
         {photos.length === 0 ? (
           <div className="max-w-4xl mx-auto text-center py-20">
             <div className="text-6xl mb-6">📸</div>
-            <h2 className="text-2xl text-[#3D3225] font-light mb-4">
+            <h2 className="text-2xl text-dreamr-text-dark font-light mb-4">
               No photos yet
             </h2>
-            <p className="text-[#7A6B5A] mb-8">
+            <p className="text-dreamr-text mb-8">
               Upload a photo or create a manifestation to get started
             </p>
             <Link
               href="/"
-              className="inline-block bg-gradient-to-br from-[#D4A574] to-[#C4956A] text-white px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-[0_8px_30px_rgba(212,165,116,0.4)] hover:shadow-[0_12px_40px_rgba(212,165,116,0.5)] hover:translate-y-[-2px] transition-all"
+              className="inline-block bg-dreamr-button text-white px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px] transition-all"
             >
               Create Manifestation
             </Link>
@@ -325,8 +325,8 @@ export default function ProfilePage() {
                   key={photo.id}
                   onClick={() => setSelectedPhotoUrl(photo.url)}
                   className={`relative aspect-square rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 ${selectedPhotoUrl === photo.url
-                    ? "ring-4 ring-[#D4A574] scale-[1.02] shadow-[0_8px_30px_rgba(212,165,116,0.4)]"
-                    : "shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.3)] hover:scale-[1.02]"
+                    ? "ring-4 ring-dreamr-gold scale-[1.02] shadow-dreamr-gold"
+                    : "shadow-dreamr-sm hover:shadow-dreamr-gold hover:scale-[1.02]"
                     }`}
                 >
                   <div
@@ -344,12 +344,12 @@ export default function ProfilePage() {
                     <Trash2 className="w-4 h-4" />
                   </button>
                   {selectedPhotoUrl === photo.url && (
-                    <div className="absolute top-2 right-2 w-8 h-8 bg-[#D4A574] rounded-full flex items-center justify-center shadow-lg">
+                    <div className="absolute top-2 right-2 w-8 h-8 bg-dreamr-gold rounded-full flex items-center justify-center shadow-lg">
                       <Check className="w-5 h-5 text-white" />
                     </div>
                   )}
                   {currentAvatarUrl === photo.url && (
-                    <div className="absolute bottom-2 left-2 bg-white/90 px-2 py-1 rounded-full text-xs font-sans text-[#7A6B5A]">
+                    <div className="absolute bottom-2 left-2 bg-white/90 px-2 py-1 rounded-full text-xs font-sans text-dreamr-text">
                       Current
                     </div>
                   )}
@@ -363,7 +363,7 @@ export default function ProfilePage() {
                 <button
                   onClick={handleSetAsProfilePic}
                   disabled={saving || selectedPhotoUrl === currentAvatarUrl}
-                  className="bg-white/70 backdrop-blur-sm text-[#7A6B5A] border border-[#D4A574]/30 px-8 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-[0_4px_20px_rgba(0,0,0,0.06)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.2)] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="bg-dreamr-bg-card backdrop-blur-sm text-dreamr-text border border-dreamr-gold/30 px-8 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-dreamr-sm hover:shadow-dreamr-gold transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {saving ? (
                     <>
@@ -379,7 +379,7 @@ export default function ProfilePage() {
                 </button>
                 <button
                   onClick={handleGenerateFromPhoto}
-                  className="bg-gradient-to-br from-[#D4A574] to-[#C4956A] text-white px-8 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-[0_8px_30px_rgba(212,165,116,0.4)] hover:shadow-[0_12px_40px_rgba(212,165,116,0.5)] hover:translate-y-[-2px] transition-all flex items-center justify-center gap-2"
+                  className="bg-dreamr-button text-white px-8 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px] transition-all flex items-center justify-center gap-2"
                 >
                   <Sparkles className="w-4 h-4" />
                   Generate New Manifestation
@@ -399,7 +399,7 @@ export default function ProfilePage() {
           }
         }}
       >
-        <AlertDialogContent className="bg-white/90 text-[#3D3225] border-none">
+        <AlertDialogContent className="bg-white/90 text-dreamr-text-dark border-none">
           <AlertDialogHeader>
             <AlertDialogTitle>Delete this photo?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -407,7 +407,7 @@ export default function ProfilePage() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           {photoPendingDelete && (
-            <div className="overflow-hidden rounded-2xl border border-[#D4A574]/20">
+            <div className="overflow-hidden rounded-2xl border border-dreamr-gold/20">
               <div
                 className="h-48 w-full bg-cover bg-center"
                 style={{ backgroundImage: `url(${photoPendingDelete.url})` }}

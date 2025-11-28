@@ -29,15 +29,15 @@ export default function UploadStep({
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-5 py-10 animate-fade-in">
-      <div className="text-xs font-sans uppercase tracking-[3px] text-[#B89B7A] mb-4">
+      <div className="text-xs font-sans uppercase tracking-[3px] text-dreamr-text-accent mb-4">
         Step 1 of 3
       </div>
 
-      <h2 className="text-4xl md:text-5xl font-light text-[#3D3225] mb-4 text-center">
+      <h2 className="text-4xl md:text-5xl font-light text-dreamr-text-dark mb-4 text-center">
         Show Us You
       </h2>
 
-      <p className="text-lg text-[#7A6B5A] mb-12 font-light text-center">
+      <p className="text-lg text-dreamr-text mb-12 font-light text-center">
         Upload a photo to begin visualizing your future self
       </p>
 
@@ -53,8 +53,8 @@ export default function UploadStep({
         onClick={() => fileInputRef.current?.click()}
         className={`w-[280px] h-[340px] rounded-[200px_200px_140px_140px] cursor-pointer transition-all duration-400 overflow-hidden relative ${
           uploadedImage
-            ? 'shadow-[0_20px_60px_rgba(0,0,0,0.15)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.2)] hover:scale-[1.02]'
-            : 'border-2 border-dashed border-[#D4A574] bg-gradient-to-b from-[rgba(212,165,116,0.08)] to-[rgba(212,165,116,0.15)] shadow-[0_10px_40px_rgba(212,165,116,0.15)] hover:shadow-[0_15px_50px_rgba(212,165,116,0.25)] hover:scale-[1.02]'
+            ? 'shadow-dreamr-lg hover:shadow-dreamr-card hover:scale-[1.02]'
+            : 'border-2 border-dashed border-dreamr-gold bg-gradient-to-b from-dreamr-gold/[0.08] to-dreamr-gold/[0.15] shadow-dreamr-lg hover:shadow-dreamr-gold hover:scale-[1.02]'
         }`}
         style={
           uploadedImage
@@ -68,16 +68,16 @@ export default function UploadStep({
       >
         {!uploadedImage && (
           <div className="flex flex-col items-center justify-center h-full">
-            <div className="w-16 h-16 rounded-full bg-[rgba(212,165,116,0.15)] flex items-center justify-center mb-5">
-              <Camera className="w-7 h-7 text-[#B89B7A]" />
+            <div className="w-16 h-16 rounded-full bg-dreamr-gold/15 flex items-center justify-center mb-5">
+              <Camera className="w-7 h-7 text-dreamr-text-accent" />
             </div>
-            <span className="text-[#B89B7A] text-base font-sans">
+            <span className="text-dreamr-text-accent text-base font-sans">
               Tap to upload
             </span>
           </div>
         )}
         {uploadedImage && (
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 px-5 py-2 rounded-full text-xs font-sans text-[#7A6B5A]">
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 px-5 py-2 rounded-full text-xs font-sans text-dreamr-text">
             Tap to change
           </div>
         )}
@@ -88,8 +88,8 @@ export default function UploadStep({
         disabled={!uploadedImage}
         className={`mt-12 border-none px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full transition-all duration-300 ${
           uploadedImage
-            ? 'bg-gradient-to-br from-[#D4A574] to-[#C4956A] text-white cursor-pointer shadow-[0_8px_30px_rgba(212,165,116,0.4)] hover:shadow-[0_12px_40px_rgba(212,165,116,0.5)] hover:translate-y-[-2px]'
-            : 'bg-[rgba(212,165,116,0.3)] text-white cursor-not-allowed'
+            ? 'bg-dreamr-button text-white cursor-pointer shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px]'
+            : 'bg-dreamr-gold/30 text-white cursor-not-allowed'
         }`}
       >
         Continue
@@ -100,7 +100,7 @@ export default function UploadStep({
           <div
             key={i}
             className={`h-2 rounded transition-all duration-300 ${
-              i === 1 ? 'w-6 bg-[#D4A574]' : i < 1 ? 'w-2 bg-[#D4A574]' : 'w-2 bg-[#D4A574]/30'
+              i === 1 ? 'w-6 bg-dreamr-gold' : i < 1 ? 'w-2 bg-dreamr-gold' : 'w-2 bg-dreamr-gold/30'
             }`}
           />
         ))}
