@@ -69,7 +69,7 @@ export default function VisionBoard() {
   const handleDownload = (manifestation: Manifestation) => {
     const link = document.createElement("a");
     link.href = manifestation.generatedImage;
-    link.download = `manifestr-${manifestation.id}.jpg`;
+    link.download = `dreamr-${manifestation.id}.jpg`;
     link.target = "_blank";
     document.body.appendChild(link);
     link.click();
@@ -79,10 +79,10 @@ export default function VisionBoard() {
   // Show loading state while checking auth
   if (authLoading || (loading && user)) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#FDF8F3] via-[#FEF3E8] to-[#FDF0E6]">
+      <div className="flex items-center justify-center min-h-screen bg-dreamr-gradient">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-gradient-to-br from-[#D4A574] to-[#C4956A] mx-auto mb-4 animate-pulse" />
-          <p className="text-[#7A6B5A] font-sans">Loading...</p>
+          <div className="w-16 h-16 rounded-full bg-dreamr-button mx-auto mb-4 animate-pulse" />
+          <p className="text-dreamr-text font-sans">Loading...</p>
         </div>
       </div>
     );
@@ -92,10 +92,10 @@ export default function VisionBoard() {
   if (!user) return null;
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#FDF8F3] via-[#FEF3E8] to-[#FDF0E6]">
+    <main className="relative min-h-screen overflow-hidden bg-dreamr-gradient">
       {/* Decorative background elements */}
-      <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,200,150,0.15)_0%,transparent_70%)] rounded-full pointer-events-none" />
-      <div className="fixed bottom-[-30%] left-[-15%] w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(255,180,120,0.1)_0%,transparent_70%)] rounded-full pointer-events-none" />
+      <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] bg-dreamr-glow-1 rounded-full pointer-events-none" />
+      <div className="fixed bottom-[-30%] left-[-15%] w-[800px] h-[800px] bg-dreamr-glow-2 rounded-full pointer-events-none" />
 
       <div className="relative z-10 px-5 py-10">
         {/* Header */}
@@ -103,7 +103,7 @@ export default function VisionBoard() {
           <div className="flex items-center justify-between mb-6">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-[#B89B7A] hover:text-[#D4A574] transition-colors font-sans text-sm"
+              className="inline-flex items-center gap-2 text-dreamr-text-accent hover:text-dreamr-gold transition-colors font-sans text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Home
@@ -111,14 +111,14 @@ export default function VisionBoard() {
             <div className="flex items-center gap-3">
               <Link
                 href="/profile"
-                className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-sm text-[#7A6B5A] px-4 py-2 rounded-full font-sans text-sm shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.3)] transition-all"
+                className="inline-flex items-center gap-2 bg-dreamr-bg-card backdrop-blur-sm text-dreamr-text px-4 py-2 rounded-full font-sans text-sm shadow-dreamr-sm hover:shadow-dreamr-gold transition-all"
               >
                 <User className="w-4 h-4" />
                 Your Photos
               </Link>
               <button
                 onClick={signOut}
-                className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-sm text-[#7A6B5A] px-4 py-2 rounded-full font-sans text-sm shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.3)] transition-all"
+                className="inline-flex items-center gap-2 bg-dreamr-bg-card backdrop-blur-sm text-dreamr-text px-4 py-2 rounded-full font-sans text-sm shadow-dreamr-sm hover:shadow-dreamr-gold transition-all"
               >
                 <LogOut className="w-4 h-4" />
                 Sign Out
@@ -126,10 +126,10 @@ export default function VisionBoard() {
             </div>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-light text-[#3D3225] mb-4">
+          <h1 className="text-5xl md:text-7xl font-light text-dreamr-text-dark mb-4">
             Your Vision Board
           </h1>
-          <p className="text-lg text-[#7A6B5A] font-light">
+          <p className="text-lg text-dreamr-text font-light">
             Your collection of future selves
           </p>
         </div>
@@ -138,15 +138,15 @@ export default function VisionBoard() {
         {manifestations.length === 0 ? (
           <div className="max-w-6xl mx-auto text-center py-20">
             <div className="text-6xl mb-6">✨</div>
-            <h2 className="text-2xl text-[#3D3225] font-light mb-4">
+            <h2 className="text-2xl text-dreamr-text-dark font-light mb-4">
               Your vision board is empty
             </h2>
-            <p className="text-[#7A6B5A] mb-8">
+            <p className="text-dreamr-text mb-8">
               Create your first manifestation to get started
             </p>
             <Link
               href="/"
-              className="inline-block bg-gradient-to-br from-[#D4A574] to-[#C4956A] text-white px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-[0_8px_30px_rgba(212,165,116,0.4)] hover:shadow-[0_12px_40px_rgba(212,165,116,0.5)] hover:translate-y-[-2px] transition-all"
+              className="inline-block bg-dreamr-button text-white px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px] transition-all"
             >
               Create Manifestation
             </Link>
@@ -162,7 +162,7 @@ export default function VisionBoard() {
                 <div
                   key={manifestation.id}
                   onClick={() => setSelectedManifestation(manifestation)}
-                  className="bg-white/70 backdrop-blur-sm rounded-2xl overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(212,165,116,0.3)] transition-all duration-300 cursor-pointer hover:scale-[1.02] group"
+                  className="bg-dreamr-bg-card backdrop-blur-sm rounded-2xl overflow-hidden shadow-dreamr-sm hover:shadow-dreamr-gold transition-all duration-300 cursor-pointer hover:scale-[1.02] group"
                 >
                   <div
                     className="w-full h-64 bg-cover bg-center relative"
@@ -178,14 +178,14 @@ export default function VisionBoard() {
                       {manifestationDreams.map((dream) => (
                         <span
                           key={dream.id}
-                          className="text-xs px-3 py-1 bg-[rgba(212,165,116,0.15)] text-[#7A6B5A] rounded-full font-sans"
+                          className="text-xs px-3 py-1 bg-dreamr-gold/15 text-dreamr-text rounded-full font-sans"
                         >
                           {dream.icon} {dream.title}
                         </span>
                       ))}
                     </div>
 
-                    <p className="text-sm text-[#7A6B5A] font-sans">
+                    <p className="text-sm text-dreamr-text font-sans">
                       {new Date(manifestation.createdAt).toLocaleDateString(
                         "en-US",
                         {
@@ -214,12 +214,12 @@ export default function VisionBoard() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-6">
-              <h2 className="text-3xl font-light text-[#3D3225]">
+              <h2 className="text-3xl font-light text-dreamr-text-dark">
                 Your Manifestation
               </h2>
               <button
                 onClick={() => setSelectedManifestation(null)}
-                className="text-[#7A6B5A] hover:text-[#3D3225] text-2xl"
+                className="text-dreamr-text hover:text-dreamr-text-dark text-2xl"
               >
                 ×
               </button>
@@ -239,20 +239,20 @@ export default function VisionBoard() {
                 .map((dream) => (
                   <span
                     key={dream.id}
-                    className="px-4 py-2 bg-[rgba(212,165,116,0.15)] text-[#7A6B5A] rounded-full font-sans text-sm"
+                    className="px-4 py-2 bg-dreamr-gold/15 text-dreamr-text rounded-full font-sans text-sm"
                   >
                     {dream.icon} {dream.title}
                   </span>
                 ))}
             </div>
 
-            <div className="bg-[#FDF8F3] rounded-2xl p-6 mb-6">
-              <p className="text-lg text-[#3D3225] italic text-center leading-relaxed">
+            <div className="bg-dreamr-bg-cream rounded-2xl p-6 mb-6">
+              <p className="text-lg text-dreamr-text-dark italic text-center leading-relaxed">
                 "{selectedManifestation.affirmation}"
               </p>
             </div>
 
-            <p className="text-sm text-[#7A6B5A] font-sans mb-6 text-center">
+            <p className="text-sm text-dreamr-text font-sans mb-6 text-center">
               Created on{" "}
               {new Date(selectedManifestation.createdAt).toLocaleDateString(
                 "en-US",
@@ -267,7 +267,7 @@ export default function VisionBoard() {
             <div className="flex gap-3">
               <button
                 onClick={() => handleDownload(selectedManifestation)}
-                className="flex-1 bg-gradient-to-br from-[#D4A574] to-[#C4956A] text-white px-6 py-3 rounded-full font-sans text-sm tracking-wider uppercase flex items-center justify-center gap-2 hover:shadow-lg transition-all"
+                className="flex-1 bg-dreamr-button text-white px-6 py-3 rounded-full font-sans text-sm tracking-wider uppercase flex items-center justify-center gap-2 hover:shadow-dreamr-gold-lg transition-all"
               >
                 <Download className="w-4 h-4" />
                 Download

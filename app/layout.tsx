@@ -17,7 +17,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Manifestr - Visualize Your Future Self",
+  title: "Dreamr - Visualize Your Future Self",
   description: "See your future self. Believe in your potential. Manifest your dreams.",
 };
 
