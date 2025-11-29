@@ -4,10 +4,16 @@ import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { User, LayoutGrid, LogOut } from "lucide-react";
+import { toast } from "sonner";
 import { useAuth } from "@/contexts/AuthContext";
+import { createManifestation } from "@/lib/supabase/manifestations";
+import { affirmations } from "@/lib/constants";
 import UploadStep from "@/components/UploadStep";
 import DreamSelectionStep from "@/components/DreamSelectionStep";
 import RevealStep from "@/components/RevealStep";
+
+const getRandomAffirmation = () =>
+    affirmations[Math.floor(Math.random() * affirmations.length)] ?? affirmations[0];
 
 export default function VisualPage() {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -97,13 +103,34 @@ export default function VisualPage() {
         }
     };
 
-    const handleSave = () => {
-        setIsSaving(true);
-        // Simulate saving
-        setTimeout(() => {
+    const handleSave = async () => {
+        if (!user) {
+            router.push("/auth/login?redirect=/visualize");
+            return;
+        }
+        if (!uploadedImage || !generatedImage) {
+            toast.error("Generate an image before saving");
+            return;
+        }
+
+        try {
+            setIsSaving(true);
+            await createManifestation(
+                user.id,
+                uploadedImage,
+                generatedImage,
+                selectedDreams,
+                getRandomAffirmation()
+            );
+            toast.success("Saved to your vision board");
+        } catch (error) {
+            const message = error instanceof Error ? error.message : "Failed to save";
+            toast.error("Could not save this vision", {
+                description: message,
+            });
+        } finally {
             setIsSaving(false);
-            console.log("Saved to vision board");
-        }, 2000);
+        }
     };
 
     const handleStartOver = () => {
