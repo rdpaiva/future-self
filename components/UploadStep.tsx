@@ -21,7 +21,30 @@ export default function UploadStep({
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        onImageUpload(reader.result as string);
+        const result = reader.result as string;
+
+        // Create an image element to load the file data
+        const img = new Image();
+        img.onload = () => {
+          // Create a canvas to draw the image
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            // Draw image to canvas
+            ctx.drawImage(img, 0, 0);
+
+            // Convert to JPEG format which is supported by Gemini
+            const jpegDataUrl = canvas.toDataURL('image/jpeg', 0.9);
+            onImageUpload(jpegDataUrl);
+          } else {
+            // Fallback if canvas context fails
+            onImageUpload(result);
+          }
+        };
+        img.src = result;
       };
       reader.readAsDataURL(file);
     }
@@ -51,18 +74,17 @@ export default function UploadStep({
 
       <div
         onClick={() => fileInputRef.current?.click()}
-        className={`w-[280px] h-[340px] rounded-[200px_200px_140px_140px] cursor-pointer transition-all duration-400 overflow-hidden relative ${
-          uploadedImage
+        className={`w-[280px] h-[340px] rounded-[200px_200px_140px_140px] cursor-pointer transition-all duration-400 overflow-hidden relative ${uploadedImage
             ? 'shadow-dreamr-lg hover:shadow-dreamr-card hover:scale-[1.02]'
             : 'border-2 border-dashed border-dreamr-gold bg-gradient-to-b from-dreamr-gold/[0.08] to-dreamr-gold/[0.15] shadow-dreamr-lg hover:shadow-dreamr-gold hover:scale-[1.02]'
-        }`}
+          }`}
         style={
           uploadedImage
             ? {
-                backgroundImage: `url(${uploadedImage})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }
+              backgroundImage: `url(${uploadedImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }
             : undefined
         }
       >
@@ -86,11 +108,10 @@ export default function UploadStep({
       <button
         onClick={onNext}
         disabled={!uploadedImage}
-        className={`mt-12 border-none px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full transition-all duration-300 ${
-          uploadedImage
+        className={`mt-12 border-none px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full transition-all duration-300 ${uploadedImage
             ? 'bg-dreamr-button text-white cursor-pointer shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px]'
             : 'bg-dreamr-gold/30 text-white cursor-not-allowed'
-        }`}
+          }`}
       >
         Continue
       </button>
@@ -99,9 +120,8 @@ export default function UploadStep({
         {[0, 1, 2, 3].map((i) => (
           <div
             key={i}
-            className={`h-2 rounded transition-all duration-300 ${
-              i === 1 ? 'w-6 bg-dreamr-gold' : i < 1 ? 'w-2 bg-dreamr-gold' : 'w-2 bg-dreamr-gold/30'
-            }`}
+            className={`h-2 rounded transition-all duration-300 ${i === 1 ? 'w-6 bg-dreamr-gold' : i < 1 ? 'w-2 bg-dreamr-gold' : 'w-2 bg-dreamr-gold/30'
+              }`}
           />
         ))}
       </div>
