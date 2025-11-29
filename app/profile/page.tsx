@@ -240,38 +240,6 @@ export default function ProfilePage() {
           </p>
         </div>
 
-        {/* Current Profile Picture */}
-        <div className="max-w-4xl mx-auto mb-12">
-          <div className="bg-dreamr-bg-card backdrop-blur-sm rounded-3xl p-8 shadow-dreamr-sm">
-            <h2 className="text-xl font-light text-dreamr-text-dark mb-6 flex items-center gap-2">
-              <User className="w-5 h-5" />
-              Current Profile Picture
-            </h2>
-            <div className="flex items-center gap-6">
-              {currentAvatarUrl ? (
-                <div
-                  className="w-24 h-24 rounded-full bg-cover bg-center shadow-lg"
-                  style={{ backgroundImage: `url(${currentAvatarUrl})` }}
-                />
-              ) : (
-                <div className="w-24 h-24 rounded-full bg-dreamr-button flex items-center justify-center shadow-lg">
-                  <User className="w-10 h-10 text-white" />
-                </div>
-              )}
-              <div>
-                <p className="text-dreamr-text font-sans text-sm">
-                  {currentAvatarUrl
-                    ? "This is your current profile picture"
-                    : "No profile picture set yet"}
-                </p>
-                <p className="text-dreamr-text-accent font-sans text-xs mt-1">
-                  Select a photo below to change it
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         {/* Upload New Photo */}
         <div className="max-w-4xl mx-auto mb-8">
           <input
