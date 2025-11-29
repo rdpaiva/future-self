@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import WelcomeStep from "@/components/WelcomeStep";
@@ -19,7 +19,7 @@ const dreamPromptLookup = dreams.reduce<Record<string, string>>((acc, dream) => 
 const getRandomAffirmation = () =>
     affirmations[Math.floor(Math.random() * affirmations.length)] ?? affirmations[0];
 
-export default function GeneratePage() {
+function GenerateContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const { user, loading: authLoading } = useAuth();
@@ -228,5 +228,13 @@ export default function GeneratePage() {
                 {renderStep()}
             </div>
         </main>
+    );
+}
+
+export default function GeneratePage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <GenerateContent />
+        </Suspense>
     );
 }

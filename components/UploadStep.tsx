@@ -57,7 +57,7 @@ export default function UploadStep({
       </div>
 
       <h2 className="text-4xl md:text-5xl font-light text-dreamr-text-dark mb-4 text-center">
-        Show Us You
+        Upload Your Photo
       </h2>
 
       <p className="text-lg text-dreamr-text mb-12 font-light text-center">
@@ -75,8 +75,8 @@ export default function UploadStep({
       <div
         onClick={() => fileInputRef.current?.click()}
         className={`w-[280px] h-[340px] rounded-[200px_200px_140px_140px] cursor-pointer transition-all duration-400 overflow-hidden relative ${uploadedImage
-            ? 'shadow-dreamr-lg hover:shadow-dreamr-card hover:scale-[1.02]'
-            : 'border-2 border-dashed border-dreamr-gold bg-gradient-to-b from-dreamr-gold/[0.08] to-dreamr-gold/[0.15] shadow-dreamr-lg hover:shadow-dreamr-gold hover:scale-[1.02]'
+          ? 'shadow-dreamr-lg hover:shadow-dreamr-card hover:scale-[1.02]'
+          : 'border-2 border-dashed border-dreamr-gold bg-gradient-to-b from-dreamr-gold/[0.08] to-dreamr-gold/[0.15] shadow-dreamr-lg hover:shadow-dreamr-gold hover:scale-[1.02]'
           }`}
         style={
           uploadedImage
@@ -109,8 +109,8 @@ export default function UploadStep({
         onClick={onNext}
         disabled={!uploadedImage}
         className={`mt-12 border-none px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full transition-all duration-300 ${uploadedImage
-            ? 'bg-dreamr-button text-white cursor-pointer shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px]'
-            : 'bg-dreamr-gold/30 text-white cursor-not-allowed'
+          ? 'bg-dreamr-button text-white cursor-pointer shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px]'
+          : 'bg-dreamr-gold/30 text-white cursor-not-allowed'
           }`}
       >
         Continue

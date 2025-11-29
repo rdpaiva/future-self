@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { User, LayoutGrid, LogOut } from "lucide-react";
@@ -15,7 +15,7 @@ import RevealStep from "@/components/RevealStep";
 const getRandomAffirmation = () =>
     affirmations[Math.floor(Math.random() * affirmations.length)] ?? affirmations[0];
 
-export default function VisualPage() {
+function VisualContent() {
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
     const [step, setStep] = useState(1);
     const [selectedDreams, setSelectedDreams] = useState<string[]>([]);
@@ -226,5 +226,13 @@ export default function VisualPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function VisualPage() {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <VisualContent />
+        </Suspense>
     );
 }
