@@ -162,34 +162,59 @@ function VisualContent() {
         <div className="relative min-h-screen bg-dreamr-gradient">
             {/* Navigation Header */}
             <header className="fixed inset-x-0 top-0 z-40 border-b border-[#E8D5C4]/70 bg-white/90 backdrop-blur-xl">
-                <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+                <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
                     <Link
                         href="/"
-                        className="font-serif text-lg uppercase tracking-[0.3em] text-[#B89B7A]"
+                        className="font-serif text-lg sm:text-xl uppercase tracking-[0.3em] text-[#B89B7A]"
                     >
                         Dreamr
                     </Link>
-                    <nav className="flex items-center gap-4 text-sm">
+                    {/* Desktop Navigation */}
+                    <nav className="hidden md:flex items-center gap-6 text-base">
                         <Link
                             href="/profile"
                             className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
                         >
-                            <User className="h-4 w-4" />
+                            <User className="h-5 w-5" />
                             Your Photos
                         </Link>
                         <Link
                             href="/board"
                             className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
                         >
-                            <LayoutGrid className="h-4 w-4" />
+                            <LayoutGrid className="h-5 w-5" />
                             Vision Board
                         </Link>
                         <button
                             onClick={signOut}
                             className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
                         >
-                            <LogOut className="h-4 w-4" />
+                            <LogOut className="h-5 w-5" />
                             Sign Out
+                        </button>
+                    </nav>
+                    {/* Mobile Navigation */}
+                    <nav className="flex md:hidden items-center gap-3">
+                        <Link
+                            href="/profile"
+                            className="p-2 text-[#7A6B5A] hover:text-[#3D3225] transition"
+                            aria-label="Your Photos"
+                        >
+                            <User className="h-6 w-6" />
+                        </Link>
+                        <Link
+                            href="/board"
+                            className="p-2 text-[#7A6B5A] hover:text-[#3D3225] transition"
+                            aria-label="Vision Board"
+                        >
+                            <LayoutGrid className="h-6 w-6" />
+                        </Link>
+                        <button
+                            onClick={signOut}
+                            className="p-2 text-[#7A6B5A] hover:text-[#3D3225] transition"
+                            aria-label="Sign Out"
+                        >
+                            <LogOut className="h-6 w-6" />
                         </button>
                     </nav>
                 </div>
