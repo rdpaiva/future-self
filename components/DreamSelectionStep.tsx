@@ -2,18 +2,22 @@
 
 import { useState } from "react";
 import { dreams, affirmations } from "@/lib/constants";
-import { Check } from "lucide-react";
+import { Check, Sparkles } from "lucide-react";
 
 interface DreamSelectionStepProps {
   selectedDreams: string[];
   onToggleDream: (id: string) => void;
   onNext: () => void;
+  visionDescription?: string;
+  onVisionDescriptionChange?: (description: string) => void;
 }
 
 export default function DreamSelectionStep({
   selectedDreams,
   onToggleDream,
   onNext,
+  visionDescription = "",
+  onVisionDescriptionChange,
 }: DreamSelectionStepProps) {
   const [isRevealing, setIsRevealing] = useState(false);
 
@@ -38,7 +42,7 @@ export default function DreamSelectionStep({
         Select the areas of life you want to visualize for your future self
       </p>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-[560px] w-full mb-12">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-[560px] w-full mb-8">
         {dreams.map((dream, index) => {
           const isSelected = selectedDreams.includes(dream.id);
           return (
@@ -84,6 +88,27 @@ export default function DreamSelectionStep({
           );
         })}
       </div>
+
+      {/* Custom Vision Description */}
+      {onVisionDescriptionChange && (
+        <div className="max-w-[560px] w-full mb-8">
+          <label className="flex items-center gap-2 text-sm font-sans text-dreamr-text-accent mb-3">
+            <Sparkles className="w-4 h-4" />
+            Describe your vision (optional)
+          </label>
+          <textarea
+            value={visionDescription}
+            onChange={(e) => onVisionDescriptionChange(e.target.value)}
+            placeholder="E.g., I see myself confident at a beach resort, looking fit and relaxed..."
+            className="w-full px-4 py-3 rounded-2xl border border-dreamr-gold/30 bg-white/50 text-dreamr-text-dark font-sans text-sm focus:outline-none focus:ring-2 focus:ring-dreamr-gold focus:border-transparent transition-all resize-none"
+            rows={3}
+            maxLength={200}
+          />
+          <p className="text-xs text-dreamr-text-light mt-2 text-right">
+            {visionDescription.length}/200
+          </p>
+        </div>
+      )}
 
       <button
         onClick={handleReveal}

@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
+import { User, LayoutGrid, LogOut } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 import UploadStep from "@/components/UploadStep";
 import DreamSelectionStep from "@/components/DreamSelectionStep";
 import RevealStep from "@/components/RevealStep";
@@ -12,6 +16,34 @@ export default function VisualPage() {
     const [generatedImage, setGeneratedImage] = useState<string | null>(null);
     const [isGenerating, setIsGenerating] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
+    const [visionDescription, setVisionDescription] = useState("");
+
+    const { user, loading: authLoading, signOut } = useAuth();
+    const router = useRouter();
+    const searchParams = useSearchParams();
+
+    // Check for pre-selected photo from profile or session storage
+    useEffect(() => {
+        const photoFromUrl = searchParams.get("photo");
+        const photoFromSession = sessionStorage.getItem("preselectedImage");
+
+        if (photoFromUrl) {
+            setUploadedImage(decodeURIComponent(photoFromUrl));
+            // Clear the URL param after using it
+            router.replace("/visualize", { scroll: false });
+        } else if (photoFromSession) {
+            setUploadedImage(photoFromSession);
+            // Clear session storage after using it
+            sessionStorage.removeItem("preselectedImage");
+        }
+    }, [searchParams, router]);
+
+    // Redirect to login if not authenticated
+    useEffect(() => {
+        if (!authLoading && !user) {
+            router.push("/auth/login?redirect=/visualize");
+        }
+    }, [user, authLoading, router]);
 
     const handleImageUpload = (image: string) => {
         setUploadedImage(image);
@@ -36,6 +68,11 @@ export default function VisualPage() {
         setIsGenerating(true);
 
         try {
+            // Include custom description in the dreams array if provided
+            const dreamsWithDescription = visionDescription.trim()
+                ? [...selectedDreams, visionDescription.trim()]
+                : selectedDreams;
+
             const response = await fetch('/api/generate', {
                 method: 'POST',
                 headers: {
@@ -43,7 +80,7 @@ export default function VisualPage() {
                 },
                 body: JSON.stringify({
                     image: uploadedImage,
-                    dreams: selectedDreams,
+                    dreams: dreamsWithDescription,
                 }),
             });
 
@@ -76,35 +113,91 @@ export default function VisualPage() {
         setGeneratedImage(null);
         setIsGenerating(false);
         setIsSaving(false);
+        setVisionDescription("");
     };
 
+    // Show loading state while checking auth
+    if (authLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen bg-dreamr-gradient">
+                <div className="text-center">
+                    <div className="w-16 h-16 rounded-full bg-dreamr-button mx-auto mb-4 animate-pulse" />
+                    <p className="text-dreamr-text font-sans">Loading...</p>
+                </div>
+            </div>
+        );
+    }
+
+    // Don't render if not authenticated
+    if (!user) return null;
+
     return (
-        <div>
-            {step === 1 && (
-                <UploadStep
-                    uploadedImage={uploadedImage}
-                    onImageUpload={handleImageUpload}
-                    onNext={handleNextFromUpload}
-                />
-            )}
-            {step === 2 && (
-                <DreamSelectionStep
-                    selectedDreams={selectedDreams}
-                    onToggleDream={handleToggleDream}
-                    onNext={handleNextFromDreamSelection}
-                />
-            )}
-            {step === 3 && (
-                <RevealStep
-                    originalImage={uploadedImage!}
-                    generatedImage={generatedImage}
-                    selectedDreams={selectedDreams}
-                    onSave={handleSave}
-                    onStartOver={handleStartOver}
-                    isGenerating={isGenerating}
-                    isSaving={isSaving}
-                />
-            )}
+        <div className="relative min-h-screen bg-dreamr-gradient">
+            {/* Navigation Header */}
+            <header className="fixed inset-x-0 top-0 z-40 border-b border-[#E8D5C4]/70 bg-white/90 backdrop-blur-xl">
+                <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+                    <Link
+                        href="/"
+                        className="font-serif text-lg uppercase tracking-[0.3em] text-[#B89B7A]"
+                    >
+                        Dreamr
+                    </Link>
+                    <nav className="flex items-center gap-4 text-sm">
+                        <Link
+                            href="/profile"
+                            className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
+                        >
+                            <User className="h-4 w-4" />
+                            Your Photos
+                        </Link>
+                        <Link
+                            href="/board"
+                            className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
+                        >
+                            <LayoutGrid className="h-4 w-4" />
+                            Vision Board
+                        </Link>
+                        <button
+                            onClick={signOut}
+                            className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
+                        >
+                            <LogOut className="h-4 w-4" />
+                            Sign Out
+                        </button>
+                    </nav>
+                </div>
+            </header>
+
+            {/* Main Content with top padding for fixed header */}
+            <div className="pt-16">
+                {step === 1 && (
+                    <UploadStep
+                        uploadedImage={uploadedImage}
+                        onImageUpload={handleImageUpload}
+                        onNext={handleNextFromUpload}
+                    />
+                )}
+                {step === 2 && (
+                    <DreamSelectionStep
+                        selectedDreams={selectedDreams}
+                        onToggleDream={handleToggleDream}
+                        onNext={handleNextFromDreamSelection}
+                        visionDescription={visionDescription}
+                        onVisionDescriptionChange={setVisionDescription}
+                    />
+                )}
+                {step === 3 && (
+                    <RevealStep
+                        originalImage={uploadedImage!}
+                        generatedImage={generatedImage}
+                        selectedDreams={selectedDreams}
+                        onSave={handleSave}
+                        onStartOver={handleStartOver}
+                        isGenerating={isGenerating}
+                        isSaving={isSaving}
+                    />
+                )}
+            </div>
         </div>
     );
 }

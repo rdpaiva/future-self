@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   ArrowRight,
   Briefcase,
@@ -11,7 +12,11 @@ import {
   ShieldCheck,
   Sparkles,
   Upload,
+  User,
+  LayoutGrid,
+  LogOut,
 } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
 
 const heroMicrocopy = [
   "Private and secure. Your photos are never public.",
@@ -141,10 +146,21 @@ const finalCtaBody = [
 ];
 
 export default function Home() {
+  const { user, loading: authLoading, signOut } = useAuth();
+  const router = useRouter();
+
   const handleScrollTo = (target: string) => {
     const element = document.getElementById(target);
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handleGenerateMyFuture = () => {
+    if (user) {
+      router.push("/visualize");
+    } else {
+      router.push("/auth/login?redirect=/visualize");
     }
   };
 
@@ -173,16 +189,42 @@ export default function Home() {
               <button className="transition hover:text-[#3D3225]" onClick={() => handleScrollTo("pricing")}>
                 Pricing
               </button>
-              <Link href="/auth/login" className="text-[#B89B7A] transition hover:text-[#3D3225]">
-                Sign in
-              </Link>
+              {!authLoading && user ? (
+                <>
+                  <Link href="/profile" className="inline-flex items-center gap-1 transition hover:text-[#3D3225]">
+                    <User className="h-4 w-4" />
+                    Your Photos
+                  </Link>
+                  <Link href="/board" className="inline-flex items-center gap-1 transition hover:text-[#3D3225]">
+                    <LayoutGrid className="h-4 w-4" />
+                    Vision Board
+                  </Link>
+                  <button onClick={signOut} className="inline-flex items-center gap-1 transition hover:text-[#3D3225]">
+                    <LogOut className="h-4 w-4" />
+                    Sign Out
+                  </button>
+                </>
+              ) : !authLoading ? (
+                <Link href="/auth/login" className="text-[#B89B7A] transition hover:text-[#3D3225]">
+                  Sign in
+                </Link>
+              ) : null}
             </nav>
-            <Link
-              href="/auth/signup"
-              className="rounded-full bg-gradient-to-r from-[#D4A574] to-[#C4956A] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(212,165,116,0.35)] transition hover:shadow-[0_14px_40px_rgba(212,165,116,0.45)]"
-            >
-              Start Free
-            </Link>
+            {!authLoading && user ? (
+              <button
+                onClick={handleGenerateMyFuture}
+                className="rounded-full bg-gradient-to-r from-[#D4A574] to-[#C4956A] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(212,165,116,0.35)] transition hover:shadow-[0_14px_40px_rgba(212,165,116,0.45)]"
+              >
+                Create Now
+              </button>
+            ) : !authLoading ? (
+              <Link
+                href="/auth/signup"
+                className="rounded-full bg-gradient-to-r from-[#D4A574] to-[#C4956A] px-4 py-2 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(212,165,116,0.35)] transition hover:shadow-[0_14px_40px_rgba(212,165,116,0.45)]"
+              >
+                Start Free
+              </Link>
+            ) : null}
           </div>
         </header>
 
@@ -204,7 +246,7 @@ export default function Home() {
                 </p>
                 <div className="flex flex-col gap-4 sm:flex-row">
                   <button
-                    onClick={() => handleScrollTo("upload-or-how-it-works")}
+                    onClick={handleGenerateMyFuture}
                     className="flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#D4A574] to-[#C4956A] px-8 py-3 text-base font-semibold text-white shadow-[0_12px_35px_rgba(212,165,116,0.45)] transition hover:shadow-[0_16px_45px_rgba(212,165,116,0.55)]"
                   >
                     Generate My Future

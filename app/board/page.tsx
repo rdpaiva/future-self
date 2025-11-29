@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Manifestation } from "@/lib/types";
 import { dreams } from "@/lib/constants";
-import { ArrowLeft, Trash2, Download, Loader2, LogOut, User } from "lucide-react";
+import { Trash2, Download, Loader2, LogOut, User, LayoutGrid } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -97,35 +97,44 @@ export default function VisionBoard() {
       <div className="fixed top-[-20%] right-[-10%] w-[600px] h-[600px] bg-dreamr-glow-1 rounded-full pointer-events-none" />
       <div className="fixed bottom-[-30%] left-[-15%] w-[800px] h-[800px] bg-dreamr-glow-2 rounded-full pointer-events-none" />
 
-      <div className="relative z-10 px-5 py-10">
-        {/* Header */}
-        <div className="max-w-6xl mx-auto mb-12">
-          <div className="flex items-center justify-between mb-6">
+      {/* Navigation Header */}
+      <header className="fixed inset-x-0 top-0 z-40 border-b border-[#E8D5C4]/70 bg-white/90 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <Link
+            href="/"
+            className="font-serif text-lg uppercase tracking-[0.3em] text-[#B89B7A]"
+          >
+            Dreamr
+          </Link>
+          <nav className="flex items-center gap-4 text-sm">
             <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-dreamr-text-accent hover:text-dreamr-gold transition-colors font-sans text-sm"
+              href="/profile"
+              className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
+              <User className="h-4 w-4" />
+              Your Photos
             </Link>
-            <div className="flex items-center gap-3">
-              <Link
-                href="/profile"
-                className="inline-flex items-center gap-2 bg-dreamr-bg-card backdrop-blur-sm text-dreamr-text px-4 py-2 rounded-full font-sans text-sm shadow-dreamr-sm hover:shadow-dreamr-gold transition-all"
-              >
-                <User className="w-4 h-4" />
-                Your Photos
-              </Link>
-              <button
-                onClick={signOut}
-                className="inline-flex items-center gap-2 bg-dreamr-bg-card backdrop-blur-sm text-dreamr-text px-4 py-2 rounded-full font-sans text-sm shadow-dreamr-sm hover:shadow-dreamr-gold transition-all"
-              >
-                <LogOut className="w-4 h-4" />
-                Sign Out
-              </button>
-            </div>
-          </div>
+            <Link
+              href="/board"
+              className="inline-flex items-center gap-2 text-[#3D3225] font-medium"
+            >
+              <LayoutGrid className="h-4 w-4" />
+              Vision Board
+            </Link>
+            <button
+              onClick={signOut}
+              className="inline-flex items-center gap-2 text-[#7A6B5A] transition hover:text-[#3D3225]"
+            >
+              <LogOut className="h-4 w-4" />
+              Sign Out
+            </button>
+          </nav>
+        </div>
+      </header>
 
+      <div className="relative z-10 px-5 py-10 pt-24">
+        {/* Page Title */}
+        <div className="max-w-6xl mx-auto mb-12">
           <h1 className="text-5xl md:text-7xl font-light text-dreamr-text-dark mb-4">
             Your Vision Board
           </h1>
@@ -145,10 +154,10 @@ export default function VisionBoard() {
               Create your first manifestation to get started
             </p>
             <Link
-              href="/"
+              href="/visualize"
               className="inline-block bg-dreamr-button text-white px-12 py-4 text-sm font-sans tracking-[2px] uppercase rounded-full shadow-dreamr-gold hover:shadow-dreamr-gold-lg hover:translate-y-[-2px] transition-all"
             >
-              Create Manifestation
+              Create a New You
             </Link>
           </div>
         ) : (
